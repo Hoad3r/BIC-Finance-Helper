@@ -46,7 +46,7 @@ Follow these steps to set up and run BIC locally on your machine:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/Hoad3r/BIC-Finance-Helper.git
-
+   ```
 2. **Install the dependencies:**
   ```bash   
   npm install
@@ -56,7 +56,7 @@ Follow these steps to set up and run BIC locally on your machine:
   npm run dev  
   ```
 
-In case of error installing the dependencies try:
+   In case of error installing the dependencies try:
   ```bash
   npm install --legacy-peer-deps
   ```
@@ -76,4 +76,4 @@ In case of error installing the dependencies try:
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 © 2025 Hoad3r. All rights reserved.
-Built with ❤️ using Next.js, TypeScript, and Tailwind CSS. """
+Built with ❤️ using Next.js, TypeScript, and Tailwind CSS.
