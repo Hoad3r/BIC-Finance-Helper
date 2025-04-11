@@ -12,6 +12,8 @@ import { ReportsSummary } from "@/components/reports/reports-summary"
 import { Button } from "@/components/ui/button"
 import { Download, Share } from "lucide-react"
 import { PageTransition } from "@/components/page-transition"
+import { ExportReportDialog } from "@/components/reports/export-report-dialog"
+import { ShareReportDialog } from "@/components/reports/share-report-dialog"
 
 export default async function ReportsPage() {
   const session = await auth()
@@ -25,14 +27,19 @@ export default async function ReportsPage() {
       <DashboardShell>
         <DashboardHeader heading="Relatórios" text="Visualize seus dados financeiros com gráficos e análises.">
           <div className="flex gap-2">
-            <Button variant="outline" size="sm">
-              <Download className="mr-2 h-4 w-4" />
-              Exportar
-            </Button>
-            <Button variant="outline" size="sm">
-              <Share className="mr-2 h-4 w-4" />
-              Compartilhar
-            </Button>
+            <ExportReportDialog>
+              <Button variant="outline" size="sm">
+                <Download className="mr-2 h-4 w-4" />
+                Exportar
+              </Button>
+            </ExportReportDialog>
+
+            <ShareReportDialog>
+              <Button variant="outline" size="sm">
+                <Share className="mr-2 h-4 w-4" />
+                Compartilhar
+              </Button>
+            </ShareReportDialog>
           </div>
         </DashboardHeader>
 
