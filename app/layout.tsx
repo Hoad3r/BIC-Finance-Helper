@@ -4,13 +4,13 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { FinanceProvider } from "@/lib/finance-context"
+import { GoalsProvider } from "@/lib/goals-context"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "FinanceTrack - Controle suas finanças",
   description: "Aplicativo para controle de finanças pessoais",
-    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -22,13 +22,12 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={inter.className}>
         <FinanceProvider>
-          {children}
-          <Toaster />
+          <GoalsProvider>
+            {children}
+            <Toaster />
+          </GoalsProvider>
         </FinanceProvider>
       </body>
     </html>
   )
 }
-
-
-import './globals.css'

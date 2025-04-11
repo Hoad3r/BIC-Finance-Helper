@@ -2,60 +2,69 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
+import { Goal, useGoals } from "@/lib/goals-context"
+import { useEffect, useState } from "react"
 
 export function FinancialGoals() {
-  // In a real app, this data would come from an API or database
-  const goals = [
-    {
-      id: "1",
-      name: "Emergency Fund",
-      target: 10000,
-      current: 6500,
-      deadline: "2025-12-31",
-    },
-    {
-      id: "2",
-      name: "Vacation Savings",
-      target: 3000,
-      current: 1200,
-      deadline: "2025-07-15",
-    },
-    {
-      id: "3",
-      name: "New Laptop",
-      target: 1500,
-      current: 900,
-      deadline: "2025-05-30",
-    },
-  ]
+  const { goals } = useGoals()
+  const [activeGoals, setActiveGoals] = useState<Goal[]>([])
+
+  useEffect(() => {
+    // Filtrar apenas metas ativas e ordenar por progresso
+    const filtered = goals
+      .filter((goal) => goal.status === "active")
+      .sort((a, b) => {
+        const progressA = (a.current / a.target) * 100
+        const progressB = (b.current / b.target) * 100
+        return progressB - progressA
+      })
+      .slice(0, 3) // Mostrar apenas as 3 principais metas
+
+    setActiveGoals(filtered)
+  }, [goals])
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Financial Goals</CardTitle>
-        <CardDescription>Track your progress towards your financial goals.</CardDescription>
+        <CardTitle>Metas Financeiras</CardTitle>
+        <CardDescription>Acompanhe o progresso das suas metas financeiras.</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-8">
-          {goals.map((goal) => {
-            const progress = Math.round((goal.current / goal.target) * 100)
+          {activeGoals.length === 0 ? (
+            <p className="text-center text-muted-foreground">Nenhuma meta ativa encontrada.</p>
+          ) : (
+            activeGoals.map((goal) => {
+              const progress = Math.round((goal.current / goal.target) * 100)
 
-            return (
-              <div key={goal.id} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="font-medium">{goal.name}</div>
-                  <div className="text-sm text-muted-foreground">
-                    ${goal.current.toFixed(2)} / ${goal.target.toFixed(2)}
+              return (
+                <div key={goal.id} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium flex items-center">
+                      <span className="mr-2">{goal.icon}</span>
+                      {goal.name}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      R$ {goal.current.toFixed(2)} / R$ {goal.target.toFixed(2)}
+                    </div>
+                  </div>
+                  <div className="relative w-full h-2 bg-gray-200 rounded">
+                    <div
+                      className="absolute top-0 left-0 h-full rounded"
+                      style={{
+                        width: `${progress}%`,
+                        backgroundColor: goal.color,
+                      }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-muted-foreground">
+                    <div>{progress}% completo</div>
+                    <div>Prazo: {new Date(goal.deadline).toLocaleDateString("pt-BR")}</div>
                   </div>
                 </div>
-                <Progress value={progress} className="h-2" />
-                <div className="flex items-center justify-between text-xs text-muted-foreground">
-                  <div>{progress}% complete</div>
-                  <div>Due {new Date(goal.deadline).toLocaleDateString()}</div>
-                </div>
-              </div>
-            )
-          })}
+              )
+            })
+          )}
         </div>
       </CardContent>
     </Card>

@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
 
 export function SpendingChart() {
   // In a real app, this data would come from an API or database
@@ -11,7 +11,7 @@ export function SpendingChart() {
       total: 1200,
     },
     {
-      name: "Feb",
+      name: "Fev",
       total: 1800,
     },
     {
@@ -19,11 +19,11 @@ export function SpendingChart() {
       total: 1400,
     },
     {
-      name: "Apr",
+      name: "Abr",
       total: 1300,
     },
     {
-      name: "May",
+      name: "Mai",
       total: 1200,
     },
     {
@@ -35,8 +35,8 @@ export function SpendingChart() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Monthly Spending</CardTitle>
-        <CardDescription>Your spending patterns over the past 6 months.</CardDescription>
+        <CardTitle>Gastos Mensais</CardTitle>
+        <CardDescription>Seus padrões de gastos nos últimos 6 meses.</CardDescription>
       </CardHeader>
       <CardContent className="h-[350px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -47,7 +47,11 @@ export function SpendingChart() {
               fontSize={12}
               tickLine={false}
               axisLine={false}
-              tickFormatter={(value) => `$${value}`}
+              tickFormatter={(value) => `R$${value}`}
+            />
+            <Tooltip
+              formatter={(value) => [`R$ ${value.toFixed(2)}`, "Total"]}
+              labelFormatter={(label) => `Mês: ${label}`}
             />
             <Bar dataKey="total" fill="currentColor" radius={[4, 4, 0, 0]} className="fill-primary" />
           </BarChart>
