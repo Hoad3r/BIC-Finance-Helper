@@ -5,7 +5,7 @@ import { redirect } from "next/navigation"
 import DashboardClient from "./DashboardClient"
 
 export const metadata: Metadata = {
-  title: "FinanceTrack - Dashboard",
+  title: "BIC - Dashboard",
   description: "Gerencie suas finanças pessoais",
 }
 

@@ -9,8 +9,8 @@ import { GoalsProvider } from "@/lib/goals-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "FinanceTrack - Controle suas finanças",
-  description: "Aplicativo para controle de finanças pessoais",
+  title: "BIC - BACK IN CONTROL",
+  description: "Web app para controle de finanças pessoais",
 }
 
 export default function RootLayout({

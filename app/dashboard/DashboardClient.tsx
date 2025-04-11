@@ -57,7 +57,7 @@ export default function DashboardClient({ children }: DashboardLayoutProps) {
         <div className="flex h-16 items-center justify-between px-4">
           <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
             <Home className="h-5 w-5" />
-            <span>FinanceTrack</span>
+            <span>BIC</span>
           </Link>
           <Sheet>
             <SheetTrigger asChild>
@@ -71,7 +71,7 @@ export default function DashboardClient({ children }: DashboardLayoutProps) {
                 <div className="flex h-14 items-center justify-between border-b px-4">
                   <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
                     <Home className="h-5 w-5" />
-                    <span>FinanceTrack</span>
+                    <span>BIC</span>
                   </Link>
                   <SheetTrigger asChild>
                     <Button variant="ghost" size="icon">
@@ -96,7 +96,7 @@ export default function DashboardClient({ children }: DashboardLayoutProps) {
             <div className="flex h-14 items-center px-4 font-semibold">
               <Link href="/dashboard" className="flex items-center gap-2">
                 <Home className="h-5 w-5" />
-                <span>FinanceTrack</span>
+                <span>BIC</span>
               </Link>
             </div>
             <SidebarNav items={sidebarNavItems} className="px-2" />
@@ -116,6 +116,14 @@ export default function DashboardClient({ children }: DashboardLayoutProps) {
           <Home className="h-5 w-5" />
         </Button>
       </div>
+      <footer className="border-t py-6">
+  <div className="container flex flex-col items-center justify-center gap-4 md:h-24">
+    <p className="text-center text-sm leading-loose text-muted-foreground">
+      © 2025 BIC - BACK IN CONTROL. All rights reserved.
+    </p>
+  </div>
+</footer>
+
     </div>
   )
 }

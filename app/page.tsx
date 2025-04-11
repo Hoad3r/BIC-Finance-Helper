@@ -17,7 +17,7 @@ export default async function Home() {
         <div className="container flex h-14 items-center">
           <div className="mr-4 flex">
             <Link href="/" className="mr-6 flex items-center space-x-2">
-              <span className="font-bold">FinanceTrack</span>
+              <span className="font-bold">BIC</span>
             </Link>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-2">
@@ -41,7 +41,7 @@ export default async function Home() {
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    Take Control of Your Finances
+                    BACK IN CONTROL of Your Finances
                   </h1>
                   <p className="max-w-[600px] text-muted-foreground md:text-xl">
                     Track expenses, monitor income, and achieve your financial goals with our intuitive personal finance
@@ -112,7 +112,7 @@ export default async function Home() {
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © 2025 FinanceTrack. All rights reserved.
+            © 2025 BIC - BACK IN CONTROL. All rights reserved.
           </p>
         </div>
       </footer>
