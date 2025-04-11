@@ -122,13 +122,7 @@ export function CategoriesGrid({ filterType = "all" }: CategoriesGridProps) {
                   Editar
                 </Button>
               </EditCategoryDialog>
-              <DeleteCategoryDialog
-                category={category}
-                onDelete={() => {
-                  console.log("Exclusão iniciada para a categoria:", category)
-                  deleteCategory(category.id)
-                }}
-              >
+              <DeleteCategoryDialog category={category} onDelete={() => deleteCategory(category.id)}>
                 <Button variant="ghost" size="sm" className="h-8 px-2 text-rose-500 hover:text-rose-600">
                   <Trash className="mr-2 h-4 w-4" />
                   Excluir

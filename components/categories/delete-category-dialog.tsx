@@ -14,7 +14,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { useToast } from "@/components/ui/use-toast"
-import { useFinance, type Category } from "@/lib/finance-context"
+import type { Category } from "@/lib/finance-context"
 
 export function DeleteCategoryDialog({
   children,
@@ -23,25 +23,33 @@ export function DeleteCategoryDialog({
 }: {
   children: React.ReactNode
   category: Category
-  onDelete?: () => void
+  onDelete: () => void
 }) {
   const [open, setOpen] = useState(false)
   const { toast } = useToast()
-  const { deleteCategory } = useFinance()
 
   const handleDelete = () => {
-    // Exclui a categoria usando o contexto
-    if (onDelete) {
-      onDelete()
+    // Verifica se a categoria pode ser excluída
+    if (category.transactionCount > 0) {
+      toast({
+        title: "Ação não permitida",
+        description: `A categoria "${category.name}" possui transações associadas e não pode ser excluída.`,
+        variant: "destructive",
+      })
+      return
     }
-    deleteCategory(category.id)
 
+    // Chama a função de exclusão passada como prop
+    onDelete()
+
+    // Exibe a notificação de sucesso
     toast({
       title: "Categoria excluída",
       description: `A categoria "${category.name}" foi excluída com sucesso.`,
       variant: "destructive",
     })
 
+    // Fecha o diálogo
     setOpen(false)
   }
 
@@ -56,14 +64,19 @@ export function DeleteCategoryDialog({
             associações.
             {category.transactionCount > 0 && (
               <span className="block mt-2 font-medium text-destructive">
-                Atenção: Esta categoria possui {category.transactionCount} transações associadas.
+                Atenção: Esta categoria possui {category.transactionCount} transações associadas e não pode ser excluída.
               </span>
             )}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Excluir</AlertDialogAction>
+          <AlertDialogAction
+            onClick={handleDelete}
+            disabled={category.transactionCount > 0}
+          >
+            Excluir
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
