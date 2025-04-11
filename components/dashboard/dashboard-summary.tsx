@@ -88,31 +88,44 @@ export function DashboardSummary() {
         </CardContent>
       </Card>
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Receita Mensal</CardTitle>
-          <ArrowUp className="h-4 w-4 text-emerald-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold text-emerald-500">R$ {summary.income.toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            {summary.incomeChange > 0 ? "+" : ""}
-            {summary.incomeChange.toFixed(1)}% em relação ao mês anterior
-          </p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Despesas Mensais</CardTitle>
-          <ArrowDown className="h-4 w-4 text-rose-500" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold text-rose-500">R$ {summary.expenses.toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            {summary.expenseChange > 0 ? "+" : ""}
-            {summary.expenseChange.toFixed(1)}% em relação ao mês anterior
-          </p>
-        </CardContent>
-      </Card>
+  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+    <CardTitle className="text-sm font-medium">Receita Mensal</CardTitle>
+    <ArrowUp className="h-4 w-4 text-emerald-500" />
+  </CardHeader>
+  <CardContent>
+    <div className="text-2xl font-bold text-emerald-500">
+      R$ {summary.income.toFixed(2)}
+    </div>
+    <p
+      className={`text-xs ${
+        summary.incomeChange >= 0 ? "text-emerald-500" : "text-rose-500"
+      }`}
+    >
+      {summary.incomeChange > 0 ? "+" : ""}
+      {summary.incomeChange.toFixed(1)}% em relação ao mês anterior
+    </p>
+  </CardContent>
+</Card>
+<Card>
+  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+    <CardTitle className="text-sm font-medium">Despesas Mensais</CardTitle>
+    <ArrowDown className="h-4 w-4 text-rose-500" />
+  </CardHeader>
+  <CardContent>
+    <div className="text-2xl font-bold text-rose-500">
+      R$ {summary.expenses.toFixed(2)}
+    </div>
+    <p
+      className={`text-xs ${
+        summary.expenseChange >= 0 ? "text-rose-500" : "text-emerald-500"
+      }`}
+    >
+      {summary.expenseChange > 0 ? "+" : ""}
+      {summary.expenseChange.toFixed(1)}% em relação ao mês anterior
+    </p>
+  </CardContent>
+</Card>
+
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-sm font-medium">Economias Mensais</CardTitle>

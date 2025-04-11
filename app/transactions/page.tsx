@@ -53,22 +53,66 @@ function TransactionsClientContent() {
     expenseChange: -5.2, // porcentagem fixa para demonstração
   })
 
-  // Atualizar o resumo quando as transações mudarem
-  useEffect(() => {
-    const totalIncome = transactions.filter((t) => t.amount > 0).reduce((sum, t) => sum + t.amount, 0)
+ // Atualizar o resumo quando as transações mudarem
+useEffect(() => {
+  const now = new Date();
+  const currentMonth = now.getUTCMonth(); // Usar UTC
+  const currentYear = now.getUTCFullYear(); // Usar UTC
 
-    const totalExpenses = transactions.filter((t) => t.amount < 0).reduce((sum, t) => sum + Math.abs(t.amount), 0)
+  const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
+  const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
 
-    const balance = totalIncome - totalExpenses
+  // Filtrar transações do mês atual e do mês anterior
+  const currentMonthTransactions = transactions.filter((t) => {
+    const date = new Date(t.date);
+    return date.getUTCMonth() === currentMonth && date.getUTCFullYear() === currentYear; // Usar UTC
+  });
 
-    setSummary({
-      totalIncome,
-      totalExpenses,
-      balance,
-      incomeChange: 12.5, // porcentagem fixa para demonstração
-      expenseChange: -5.2, // porcentagem fixa para demonstração
-    })
-  }, [transactions])
+  const lastMonthTransactions = transactions.filter((t) => {
+    const date = new Date(t.date);
+    return date.getUTCMonth() === lastMonth && date.getUTCFullYear() === lastMonthYear; // Usar UTC
+  });
+
+  // Calcular receitas e despesas
+  const currentIncome = currentMonthTransactions
+    .filter((t) => t.amount > 0)
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const currentExpenses = Math.abs(
+    currentMonthTransactions
+      .filter((t) => t.amount < 0)
+      .reduce((sum, t) => sum + t.amount, 0),
+  );
+
+  const lastIncome = lastMonthTransactions
+    .filter((t) => t.amount > 0)
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const lastExpenses = Math.abs(
+    lastMonthTransactions
+      .filter((t) => t.amount < 0)
+      .reduce((sum, t) => sum + t.amount, 0),
+  );
+
+  // Calcular variações percentuais e fixar casas decimais
+  const incomeChange =
+    lastIncome > 0 ? parseFloat(((currentIncome - lastIncome) / lastIncome) * 100).toFixed(1) : 0;
+
+  const expenseChange =
+    lastExpenses > 0 ? parseFloat(((currentExpenses - lastExpenses) / lastExpenses) * 100).toFixed(1) : 0;
+
+  // Calcular saldo
+  const balance = currentIncome - currentExpenses;
+
+  // Atualizar o estado
+  setSummary({
+    totalIncome: currentIncome,
+    totalExpenses: currentExpenses,
+    balance,
+    incomeChange: parseFloat(incomeChange), // Garantir valores numéricos
+    expenseChange: parseFloat(expenseChange), // Garantir valores numéricos
+  });
+}, [transactions]);
 
   // Função para aplicar os filtros
   const applyFilters = (filterData) => {
